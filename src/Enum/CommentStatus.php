@@ -8,9 +8,9 @@ enum CommentStatus: string
     public function getLabel(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::Published => 'Published',
-            self::Moderated => 'Moderated',
+            self::Pending => 'En attente',
+            self::Published => 'Publié',
+            self::Moderated => 'Modéré',
         };
     }
 }
