@@ -24,7 +24,7 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body class="{% block bodyClass %}{% endblock %}">
+<body class="{% block bodyClass %}{% endblock %} flex flex-col min-h-screen">
 <nav id="header" class="w-full z-30 top-0 py-1">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
 
@@ -81,7 +81,7 @@
     </div>
 </nav>
 {% block body %}{% endblock %}
-<footer class="container mx-auto bg-white py-8 border-t border-gray-400">
+<footer class="mt-auto container mx-auto bg-white py-8 border-t border-gray-400">
     <div class="container flex px-3 py-8 ">
         <div class="w-full mx-auto flex flex-wrap">
             <div class="prose flex w-full lg:w-1/2 ">

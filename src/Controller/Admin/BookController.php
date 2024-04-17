@@ -2,10 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Author;
 use App\Entity\Book;
 use App\Form\AuthorType;
 use App\Form\BookType;
+use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,17 +19,36 @@ use Symfony\Component\Routing\Attribute\Route;
 class BookController extends AbstractController
 {
     #[Route('', name: 'app_admin_book_index')]
-    public function index(): Response
+    public function index(Request $request, BookRepository $repository): Response
     {
+        $dates = [];
+        if ($request->query->has('start')) {
+            $dates['start'] = $request->query->get('start');
+        }
+
+        if ($request->query->has('end')) {
+            $dates['end'] = $request->query->get('end');
+        }
+
+        $books = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            new QueryAdapter($repository->findByDateOfEdited($dates)),
+            $request->query->get('page', 1),
+            10
+        );
+//        $authors = $repository->findByDateOfBirth($dates);
+//        $authors = $repository->findAll();
+
         return $this->render('admin/book/index.html.twig', [
             'controller_name' => 'BookController',
+            'books' => $books,
         ]);
     }
 
     #[Route('/new', name: 'app_admin_book_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    #[Route('/{id}/edit', name: 'app_admin_book_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function new(?Book $book, Request $request, EntityManagerInterface $em): Response
     {
-        $book = new Book();
+        $book ??= new Book();
         $form = $this->createForm(BookType::class, $book);
 
         $form->handleRequest($request);
@@ -34,11 +57,19 @@ class BookController extends AbstractController
             $em->persist($book);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_book_new');
+            return $this->redirectToRoute('app_admin_book_show', ['id' => $book->getId()]);
         }
 
         return $this->render('admin/book/new.html.twig', [
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_admin_book_show', requirements: ['id' => '\d+'])]
+    public function show(?Book $book): Response
+    {
+        return $this->render('admin/book/show.html.twig', [
+            'book' => $book,
         ]);
     }
 }

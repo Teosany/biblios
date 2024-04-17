@@ -1,20 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BookController!{% endblock %}
+{% block title %}Hello www!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="prose bg-white py-8">
+        <div class="container py-8 px-10 mx-auto">
+            {#            <h1>Hello {{ controller_name }}! ✅</h1>#}
+            {#            <h4>Livres:</h4>#}
+            {#            <ul class="prose">#}
+            {#                {% for author in authors %}#}
+            {#                    <li>{{ author.name }}</li>#}
+            {#                {% else %}#}
+            {#                    <li>Aucun</li>#}
+            {#                {% endfor %}#}
+            {#                {% for i, author in authors %}#}
+            {#                <li>{{ i + 1 }} - {{ author.name }}</li>#}
+            {#                {% endfor %}#}
+            {#            </ul>#}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/bohdanburkini/DEV/Symfony/symfony_projects/biblios/src/Controller/Admin/BookController.php</code></li>
-        <li>Your template at <code>/Users/bohdanburkini/DEV/Symfony/symfony_projects/biblios/templates/admin/book/index.html.twig</code></li>
-    </ul>
-</div>
+            {% for book in books %}
+                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="{{ path('app_admin_book_show', {id: book.id}) }}">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ book.title }}</h5>
+                    </a>
+                    <a href="{{ path('app_admin_book_show', {id: book.id}) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <h5>Identifiant : {{ book.id }}</h5>
+                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </a>
+                </div>
+            {% endfor %}
+            {{ pagerfanta(books) }}
+
+        </div>
+    </section>
+
+
 {% endblock %}
