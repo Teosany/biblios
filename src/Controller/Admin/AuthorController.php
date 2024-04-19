@@ -12,7 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('IS_AUTHENTICATED')]
 #[Route('/admin/author')]
 class AuthorController extends AbstractController
 {
@@ -46,6 +48,9 @@ class AuthorController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_author_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function new(?Author $author, Request $request, EntityManagerInterface $em): Response
     {
+        if (null === $author) {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        }
         $author ??= new Author();
         $form = $this->createForm(AuthorType::class, $author);
 

@@ -35,7 +35,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\PasswordStrength(minScore: Assert\PasswordStrength::STRENGTH_STRONG)]
     #[Assert\NotCompromisedPassword]
     #[Assert\Regex('/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,32}$/')]
-    #[Assert\NotBlank]
     #[ORM\Column]
     private ?string $password = null;
 
@@ -47,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[Assert\Email()]
+    #[Assert\Email]
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
