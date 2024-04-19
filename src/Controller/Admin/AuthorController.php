@@ -44,12 +44,13 @@ class AuthorController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_AJOUT_DE_LIVRE')]
     #[Route('/new', name: 'app_admin_author_new', methods: ['GET', 'POST'])]
     #[Route('/{id}/edit', name: 'app_admin_author_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function new(?Author $author, Request $request, EntityManagerInterface $em): Response
     {
-        if (null === $author) {
-            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        if ($author) {
+            $this->denyAccessUnlessGranted('ROLE_EDITION_DE_LIVRE');
         }
         $author ??= new Author();
         $form = $this->createForm(AuthorType::class, $author);
