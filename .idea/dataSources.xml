@@ -5,7 +5,7 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:50817/postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:59550/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="@fra1.clusters.zeabur.com" uuid="79ca2af4-3176-4e68-a77e-54d18c449515">
