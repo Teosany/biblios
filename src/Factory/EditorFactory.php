@@ -47,7 +47,7 @@ final class EditorFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'name' => self::faker()->text(255),
+            'name' => self::faker()->name(),
         ];
     }
 

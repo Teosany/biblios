@@ -48,7 +48,7 @@ final class AuthorFactory extends ModelFactory
     {
         return [
             'dateOfBirth' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'name' => self::faker()->text(255),
+            'name' => self::faker()->name(),
         ];
     }
 
