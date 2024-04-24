@@ -8,26 +8,31 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
-class Book
+class Book 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank()]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $createdBy = null;
+
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
     #[Assert\Isbn(type: 'isbn13')]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $isbn = null;
 
-    #[Assert\NotBlank()]
-    #[Assert\Url()]
+    #[Assert\NotBlank]
+    #[Assert\Url]
     #[ORM\Column(length: 255)]
     private ?string $cover = null;
 
@@ -220,5 +225,15 @@ class Book
         }
 
         return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): void
+    {
+        $this->createdBy = $createdBy;
     }
 }
