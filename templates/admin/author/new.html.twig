@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% set action = app.current_route == 'app_admin_author_new' ? 'Ajout' : 'Édition' %}
+
+{% block title %}{{ action }} d'auteur{% endblock %}
+{% block bodyClass %}{{ parent() }}body{% endblock %}
+
+{% block body %}
+    <section class="px-5 prose">
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate',
+            'class': 'max-w-prose px-5 mx-auto prose'}}) }}
+        <div class="mb-5 my-5">
+            {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-field' }}) }}
+            {{ form_errors(form.name, {'attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="mb-5">
+            {{ form_label(form.dateOfBirth, 'Date of birth', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.dateOfBirth, {'attr': {'class': 'form-field'}}) }}
+            {{ form_errors(form.dateOfBirth, {'attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="mb-5">
+            {{ form_label(form.dateOfDeath, 'Date of death', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.dateOfDeath, {'attr': {'class': 'form-field'}}) }}
+            {{ form_errors(form.dateOfDeath, {'attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="mb-5">
+            {{ form_label(form.nationality, 'Nationality', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nationality, {'attr': {'class': 'form-field'}}) }}
+            {{ form_errors(form.nationality, {'attr': {'class': 'form-label'}}) }}
+        </div>
+        <div class="mb-5">
+            {{ form_label(form.books, 'Books', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.books, {'attr': {'class': 'form-field'}}) }}
+            {{ form_errors(form.books, {'attr': {'class': 'form-label'}}) }}
+        </div>
+        {#    <div class="mb-5"> #}
+        {#        {{ form_label(form.certification, '', {'label_attr': {'class': 'form-label'}}) }} #}
+        {#        {{ form_widget(form.certification, {'attr': {'class': 'form-field'}}) }} #}
+        {#        {{ form_errors(form.certification, {'attr': {'class': 'form-label'}}) }} #}
+        {{ form_row(form.certification, {'attr': {'class': ''}}) }}
+        {#    </div> #}
+        <div class="mb-5">
+            {#        {{ form_widget(form.submit, {'label': 'Créer'}) }} #}
+            <button type="submit" class="btn">Créer</button>
+        </div>
+    </section>
+
+    {#    {{ form_widget(form) }} #}
+    {{ form_end(form) }}
+{% endblock body %}

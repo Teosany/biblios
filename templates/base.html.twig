@@ -11,6 +11,7 @@
     <title>{% block title %}Nordic Shop Shop{% endblock %}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 
@@ -20,7 +21,7 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body class="{% block bodyClass %}{% endblock %}">
+<body class="{% block bodyClass %}{% endblock %} flex flex-col min-h-screen">
 <nav id="header" class="w-full z-30 top-0 py-1">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
 
@@ -77,7 +78,7 @@
     </div>
 </nav>
 {% block body %}{% endblock %}
-<footer class="container mx-auto bg-white py-8 border-t border-gray-400">
+<footer class="mt-auto container mx-auto bg-white py-8 border-t border-gray-400">
     <div class="container flex px-3 py-8 ">
         <div class="w-full mx-auto flex flex-wrap">
             <div class="prose flex w-full lg:w-1/2 ">

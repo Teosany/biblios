@@ -5,7 +5,11 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        // sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

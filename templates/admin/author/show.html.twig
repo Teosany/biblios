@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detaile d'un auteur{% endblock %}
+
+{% block body %}
+
+    <section class="prose bg-white py-8">
+        <div class="container py-8 px-10 mx-auto">
+            <h1>Auteur : </h1>
+            {% if author is not null %}
+                <div class="card mb-1 m-auto">
+                    <div class="card-body">
+                        <div class="card-title d-flex justify-content-between">
+                            <h4 class="mb-1">{{ author.name }}</h4>
+                            <small class="text-muted">Identifiant : {{ author.id }}</small>
+                        </div>
+                        <div class="d-flex justify-content-between card-text">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Date de naissance : {{ author.dateOfBirth|date('d M Y') }}</li>
+                                <li class="list-group-item">Date de décès : {{ author.dateOfDeath is not null ?
+                                    author.dateOfDeath|date('d M Y') : '-' }}</li>
+                            </ul>
+                            <p><small>Nationalité : {{ "PA"|country_name }}</small></p>
+                        </div>
+                        <a href="{{ path('app_admin_author_index') }}" class="btn">Retour</a>
+                        <a href="{{ path('app_admin_author_edit', {id: author.id}) }}" class="btn">Éditer</a>
+                    </div>
+                </div>
+            {% else %}
+                <div>Auteur non trouvé</div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
